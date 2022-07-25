@@ -1,0 +1,5 @@
+.snakemake
+benchmarks/
+logs/
+results/
+salt.secret

@@ -1,0 +1,1 @@
+conda env config vars set LD_LIBRARY_PATH=$CONDA_PREFIX/lib

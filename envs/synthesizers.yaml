@@ -1,0 +1,38 @@
+channels:
+  - nvidia
+  - pytorch
+  - conda-forge
+dependencies:
+  - category_encoders
+  - cudnn
+  - diffprivlib
+  - disjoint-set
+  - husl
+  - jax
+  - jaxlib
+  - loguru
+  - matplotlib
+  - networkx
+  - nose
+  - notebook
+  - numpy
+  - nvidia::cudatoolkit
+  - palettable
+  - pandas
+  - pip
+  - pomegranate
+  - pyarrow
+  - pytorch
+  - r-base
+  - r-rvinecopulib
+  - rpy2
+  - scikit-learn<=1.0  # sklearn.linear_model._logistic._logistic_loss_and_grad (required by diffprivlib)
+  - scipy
+  - sdmetrics
+  - seaborn
+  - xgboost
+  - pip:
+      - tensorflow
+      - git+https://github.com/ryan112358/private-pgm.git@557c077
+      - git+https://github.com/snake-challenge/synthetic_data_release.git@9944dbb
+      - git+https://github.com/snake-challenge/copula-shirley.git@cc11426
