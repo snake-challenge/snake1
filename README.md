@@ -122,3 +122,10 @@ def wildcards2seed(wildcards, salt=secret):
 
 - https://github.com/snake-challenge/synthetic_data_release.git@9944dbb
 - https://github.com/snake-challenge/copula-shirley.git@cc11426
+
+## Export
+
+```
+(opt) $ mkdir opt && guild export opt
+(opt) $ zip -r output.zip benchmarks/ logs/ opt/ results/ salt.secret -x "results/epi_cpsbasic_2000_2022.zip"
+```
