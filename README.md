@@ -70,7 +70,7 @@ $ conda activate opt
 2. Run trials
 
 ```
-(opt) $ guild run privbayes:train --maximize BNLogLikelihood histogram_bins=[10:20] degree=[1:10]
+(opt) $ guild run privbayes:train --maximize BNLogLikelihood histogram_bins=[10:20] degree=[1:4] --trials 3
 ```
 
 Refer to [guild.yml]() for parameters
