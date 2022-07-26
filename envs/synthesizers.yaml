@@ -35,4 +35,4 @@ dependencies:
       - tensorflow
       - git+https://github.com/ryan112358/private-pgm.git@557c077
       - git+https://github.com/snake-challenge/synthetic_data_release.git@9944dbb
-      - git+https://github.com/snake-challenge/copula-shirley.git@cc11426
+      - git+https://github.com/snake-challenge/copula-shirley.git@865912d

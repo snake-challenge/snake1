@@ -81,6 +81,22 @@ Refer to [guild.yml]() for parameters
 (opt) $ guild view
 ```
 
+### Copula-Shirley
+
+```
+(opt) $ python -m synthesizers.copulashirley
+** Tree: 0, mbicv: -3227.07, loglik: 1801.55
+6,1 <-> BB8 270°, parameters =   4.8561
+0.398075
+6,2 <-> TLL, parameters = [30x30 grid]
+9,1 <-> Gaussian, parameters = 0.0673347
+9,3 <-> Frank, parameters = 5.25711
+7,3 <-> BB7, parameters =       1
+…
+```
+
+TODO: reduce families from trace 
+
 ## Specifications
 
 ### Seed
