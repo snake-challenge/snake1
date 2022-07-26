@@ -1,0 +1,75 @@
+- config: base
+  params:
+    default-epsilon: 1.0
+  resources:
+    data:
+      - file: results/cpsbasic.feather
+        target-path: results
+  operations:
+    train:
+      requires: data
+      sourcecode:
+        select:
+          - "synthesizers"
+      flags:
+        n_samples: 1000
+      optimizers:
+        gbrt:
+          default: yes
+
+
+- model: copulashirley
+  extends: base
+  operations:
+    train:
+      main: synthesizers.copulashirley
+      requires: data
+      flags:
+        epsilon: '{{ default-epsilon }}'
+        categorical_encoder: ORD
+        cat_encoder_target: ~
+        dp_mechanism: Laplace
+        dp_global_sens: 2
+        dp_gaussian_delta: ~
+        vine_sample_ratio: 0.5
+        vine_family_set: all
+        vine_par_method: mle
+        vine_nonpar_method: constant
+        vine_selcrit: aic
+        vine_trunc_lvl: ~
+        vine_tree_crit: tau
+
+- model: mst
+  extends: base
+  operations:
+    train:
+      main: synthesizers.mst
+      requires: data
+      flags:
+        epsilon: '{{ default-epsilon }}'
+        delta: 1.0e-9
+
+- model: pategan
+  extends: base
+  operations:
+    train:
+      main: synthesizers.pategan
+      requires: data
+      flags:
+        epsilon: '{{ default-epsilon }}'
+        delta: 1.0e-5
+        num_teachers: 10
+        n_iters: 100
+        batch_size: 128
+        learning_rate: 1.0e-4
+ 
+- model: privbayes
+  extends: base
+  operations:
+    train:
+      main: synthesizers.privbayes
+      requires: data
+      flags:
+        histogram_bins: 10
+        degree: 1
+        epsilon: '{{ default-epsilon }}'

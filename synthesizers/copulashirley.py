@@ -1,3 +1,5 @@
+import multiprocessing
+
 import pandas as pd
 from copula_shirley.preprocess import PreprocessData
 from copula_shirley.transform import GetECDFs
@@ -8,6 +10,8 @@ from copula_shirley.vine import GetSamplesFromVineOHE
 from copula_shirley.vine import GetVineStructure
 
 from synthetic_data_release.generative_models.generative_model import GenerativeModel
+
+from synthesizers.utils import CAT_COLS
 
 
 class CopulaShirley(GenerativeModel):
@@ -124,26 +128,55 @@ class CopulaShirley(GenerativeModel):
 
 
 class MyCopulaShirley(CopulaShirley):
-    CATEGORICAL_ATTRIBUTES = [
-        "agechild",
-        "citistat",
-        "female",
-        "married",
-        "wbhaom",
-        "cow1",
-        "ftptstat",
-        "statefips",
-        "mind16",
-        "mocc10",
-        "gradeatn",
-        "faminc",
-    ]
+    def __init__(self, n_cores=None, **kwargs):
+        if n_cores is None:
+            n_cores = multiprocessing.cpu_count()
 
-    def __init__(self, **kwargs):
         super().__init__(
             datetime_attributes=[],
-            categorical_attributes=self.CATEGORICAL_ATTRIBUTES,
+            categorical_attributes=CAT_COLS,
             constant_cols=[],
             constant_vals=[],
-            **kwargs
+            n_cores=n_cores,
+            **kwargs,
         )
+
+
+if __name__ == "__main__":
+    from synthesizers.utils import train_gen_score
+
+    n_samples = 1000
+
+    cat_encoder_target = None
+    categorical_encoder = "ORD"
+    dp_global_sens = 2
+    dp_gaussian_delta = None
+    dp_mechanism = "Laplace"
+    epsilon = 1.0
+    vine_family_set = "all"
+    vine_nonpar_method = "constant"
+    vine_par_method = "mle"
+    vine_sample_ratio = 0.5
+    vine_selcrit = "aic"
+    vine_tree_crit = "tau"
+    vine_trunc_lvl = None
+
+    model = MyCopulaShirley(
+        cat_encoder_target=cat_encoder_target,
+        categorical_encoder=categorical_encoder,
+        dp_global_sens=dp_global_sens,
+        dp_gaussian_delta=dp_gaussian_delta,
+        dp_mechanism=dp_mechanism,
+        epsilon=epsilon,
+        vine_family_set=vine_family_set,
+        vine_nonpar_method=vine_nonpar_method,
+        vine_par_method=vine_par_method,
+        vine_sample_ratio=vine_sample_ratio,
+        vine_selcrit=vine_selcrit,
+        vine_tree_crit=vine_tree_crit,
+        vine_trunc_lvl=vine_trunc_lvl,
+    )
+
+    scores = train_gen_score(n_samples, model)
+    for k, v in scores.items():
+        print(f"{k}: {v}")

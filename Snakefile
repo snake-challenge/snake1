@@ -79,10 +79,10 @@ rule prepare_task:
     input:
         rules.prepare_cpsbasic.output,
     output:
-        train=f"results/{paramspace.wildcard_pattern}/train.csv",
-        background=f"results/{paramspace.wildcard_pattern}/background.csv",
-        targets=f"results/{paramspace.wildcard_pattern}/targets.csv",
-        truth=f"results/{paramspace.wildcard_pattern}/truth.txt",
+        train=f"results/tasks/{paramspace.wildcard_pattern}/train.csv",
+        background=f"results/tasks/{paramspace.wildcard_pattern}/background.csv",
+        targets=f"results/tasks/{paramspace.wildcard_pattern}/targets.csv",
+        truth=f"results/tasks/{paramspace.wildcard_pattern}/truth.txt",
     params:
         seed=wildcards2seed,
         n_samples=config["n_samples"],
@@ -107,7 +107,7 @@ rule task_synth:
     input:
         rules.prepare_task.output.train,
     output:
-        f"results/{paramspace.wildcard_pattern}/synth.csv",
+        f"results/tasks/{paramspace.wildcard_pattern}/synth.csv",
     log:
         f"logs/{paramspace.wildcard_pattern}/synth.log",
     benchmark:
@@ -127,18 +127,18 @@ rule task_synth:
 # rule task_attack:
 #     input:
 #         data=f"results/data.csv",
-#         synth=f"results/{paramspace.wildcard_pattern}/synth.csv",
-#         background=f"results/{paramspace.wildcard_pattern}/background.csv",
-#         targets=f"results/{paramspace.wildcard_pattern}/targets.csv",
+#         synth=f"results/tasks/{paramspace.wildcard_pattern}/synth.csv",
+#         background=f"results/tasks/{paramspace.wildcard_pattern}/background.csv",
+#         targets=f"results/tasks/{paramspace.wildcard_pattern}/targets.csv",
 #     output:
-#         f"results/{paramspace.wildcard_pattern}/attack.txt",
+#         f"results/tasks/{paramspace.wildcard_pattern}/attack.txt",
 #     params:
 #         task=paramspace.instance,
 
 
 rule task_attack_random:
     output:
-        f"results/{paramspace.wildcard_pattern}/attack.txt",
+        f"results/tasks/{paramspace.wildcard_pattern}/attack.txt",
     params:
         n_targets=config["n_targets"],
     shell:
@@ -147,10 +147,10 @@ rule task_attack_random:
 
 rule task_scores:
     input:
-        attack=f"results/{paramspace.wildcard_pattern}/attack.txt",
+        attack=f"results/tasks/{paramspace.wildcard_pattern}/attack.txt",
         truth=rules.prepare_task.output.truth,
     output:
-        f"results/{paramspace.wildcard_pattern}/scores.csv",
+        f"results/tasks/{paramspace.wildcard_pattern}/scores.csv",
     params:
         task=paramspace.instance,
     script:
@@ -159,7 +159,7 @@ rule task_scores:
 
 rule merge_scores:
     input:
-        expand("results/{params}/scores.csv", params=paramspace.instance_patterns),
+        expand("results/tasks/{params}/scores.csv", params=paramspace.instance_patterns),
     output:
         "results/scores.csv",
     shell:
@@ -178,7 +178,7 @@ rule rank_scores:
 rule:
     input:
         expand(
-            "results/{params}/{name}",
+            "results/tasks/{params}/{name}",
             params=paramspace.instance_patterns,
             name=["synth.csv", "background.csv", "targets.csv"],
         ),

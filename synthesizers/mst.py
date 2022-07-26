@@ -10,14 +10,16 @@ from scipy.special import logsumexp
 from synthetic_data_release.generative_models.generative_model import GenerativeModel
 from scipy import sparse
 
+from synthesizers.utils import DOMAIN, MIN_VALS
+
 
 class MST(GenerativeModel):
-    def __init__(self, domain, min_, epsilon=1.0, delta=1.0e-9):
+    def __init__(self, domain, min_vals, epsilon=1.0, delta=1.0e-9):
         self.datatype = pd.DataFrame
         self.multiprocess = True
 
         self.domain = Domain.fromdict(domain)
-        self.min_vals = min_
+        self.min_vals = min_vals
         self.epsilon = epsilon
         self.delta = delta
 
@@ -210,40 +212,20 @@ class MST(GenerativeModel):
 
 
 class MyMST(MST):
-    DOMAIN = {
-        "age": 65,
-        "agechild": 16,
-        "citistat": 5,
-        "female": 2,
-        "married": 2,
-        "ownchild": 14,
-        "wbhaom": 6,
-        "gradeatn": 16,
-        "cow1": 8,
-        "ftptstat": 9,
-        "statefips": 56,
-        "hoursut": 199,
-        "faminc": 15,
-        "mind16": 16,
-        "mocc10": 10,
-    }
-    MIN = {
-        "age": 16,
-        "agechild": 0,
-        "citistat": 1,
-        "female": 0,
-        "married": 0,
-        "ownchild": 0,
-        "wbhaom": 1,
-        "gradeatn": 1,
-        "cow1": 1,
-        "ftptstat": 2,
-        "statefips": 1,
-        "hoursut": 0,
-        "faminc": 1,
-        "mind16": 1,
-        "mocc10": 1,
-    }
-
     def __init__(self, **kwargs):
-        super().__init__(domain=self.DOMAIN, min_=self.MIN, **kwargs)
+        super().__init__(domain=DOMAIN, min_vals=MIN_VALS, **kwargs)
+
+
+if __name__ == "__main__":
+    from synthesizers.utils import train_gen_score
+
+    n_samples = 1000
+
+    epsilon = 1.0
+    delta = 1.0e-9
+
+    model = MyMST(epsilon=epsilon, delta=delta)
+
+    scores = train_gen_score(n_samples, model)
+    for k, v in scores.items():
+        print(f"{k}: {v}")

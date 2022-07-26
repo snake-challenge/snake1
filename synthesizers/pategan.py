@@ -1,129 +1,9 @@
 from synthetic_data_release.generative_models.pate_gan import PATEGAN
 
+from synthesizers.utils import METADATA_SYNTHETIC_DATA_RELEASE
+
 
 class MyPATEGAN(PATEGAN):
-    METADATA = {
-        "columns": [
-            {"name": "age", "type": "Integer", "min": 16, "max": 80},
-            {"name": "ownchild", "type": "Integer", "min": 0, "max": 13},
-            {"name": "hoursut", "type": "Integer", "min": 0, "max": 198},
-            {
-                "name": "agechild",
-                "type": "Categorical",
-                "size": 16,
-                "i2s": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-            },
-            {
-                "name": "citistat",
-                "type": "Categorical",
-                "size": 5,
-                "i2s": [1, 2, 3, 4, 5],
-            },
-            {"name": "female", "type": "Categorical", "size": 2, "i2s": [0, 1]},
-            {"name": "married", "type": "Categorical", "size": 2, "i2s": [0, 1]},
-            {
-                "name": "wbhaom",
-                "type": "Categorical",
-                "size": 6,
-                "i2s": [1, 2, 3, 4, 5, 6],
-            },
-            {
-                "name": "cow1",
-                "type": "Categorical",
-                "size": 8,
-                "i2s": [1, 2, 3, 4, 5, 6, 7, 8],
-            },
-            {
-                "name": "ftptstat",
-                "type": "Categorical",
-                "size": 9,
-                "i2s": [2, 3, 4, 5, 6, 7, 8, 9, 10],
-            },
-            {
-                "name": "statefips",
-                "type": "Categorical",
-                "size": 51,
-                "i2s": [
-                    1,
-                    2,
-                    4,
-                    5,
-                    6,
-                    8,
-                    9,
-                    10,
-                    11,
-                    12,
-                    13,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20,
-                    21,
-                    22,
-                    23,
-                    24,
-                    25,
-                    26,
-                    27,
-                    28,
-                    29,
-                    30,
-                    31,
-                    32,
-                    33,
-                    34,
-                    35,
-                    36,
-                    37,
-                    38,
-                    39,
-                    40,
-                    41,
-                    42,
-                    44,
-                    45,
-                    46,
-                    47,
-                    48,
-                    49,
-                    50,
-                    51,
-                    53,
-                    54,
-                    55,
-                    56,
-                ],
-            },
-            {
-                "name": "mind16",
-                "type": "Categorical",
-                "size": 16,
-                "i2s": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-            },
-            {
-                "name": "mocc10",
-                "type": "Categorical",
-                "size": 10,
-                "i2s": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            },
-            {
-                "name": "gradeatn",
-                "type": "Ordinal",
-                "size": 16,
-                "i2s": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-            },
-            {
-                "name": "faminc",
-                "type": "Ordinal",
-                "size": 15,
-                "i2s": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-            },
-        ]
-    }
-
     def __init__(
         self,
         *,
@@ -137,7 +17,7 @@ class MyPATEGAN(PATEGAN):
         multiprocess=True,
     ):
         super().__init__(
-            metadata=self.METADATA,
+            metadata=METADATA_SYNTHETIC_DATA_RELEASE,
             eps=epsilon,
             delta=delta,
             infer_ranges=infer_ranges,
@@ -147,3 +27,29 @@ class MyPATEGAN(PATEGAN):
             learning_rate=learning_rate,
             multiprocess=multiprocess,
         )
+
+
+if __name__ == "__main__":
+    from synthesizers.utils import train_gen_score
+
+    n_samples = 1000
+
+    epsilon = 1.0
+    delta = 1e-5
+    num_teachers = 10
+    n_iters = 100
+    batch_size = 128
+    learning_rate = 1e-4
+
+    model = MyPATEGAN(
+        epsilon=epsilon,
+        delta=delta,
+        num_teachers=num_teachers,
+        n_iters=n_iters,
+        batch_size=batch_size,
+        learning_rate=learning_rate,
+    )
+
+    scores = train_gen_score(n_samples, model)
+    for k, v in scores.items():
+        print(f"{k}: {v}")
