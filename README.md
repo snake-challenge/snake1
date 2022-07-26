@@ -80,3 +80,29 @@ Refer to [guild.yml]() for parameters
 ```
 (opt) $ guild view
 ```
+
+## Specifications
+
+### Seed
+
+Data sampling is reproducible (synthetic is not!).  Each task (team, algorithm, background ratio, epsilon) uses a random seed generate from the rule wildcards using a demerministic process :
+
+```python
+def wildcards2seed(wildcards, salt=secret):
+    """hash wildcards into uint < 2^32"""
+    return int.from_bytes(
+        blake2s(
+            json.dumps(dict(wildcards), sort_keys=True).encode(),
+            digest_size=4,
+            salt=salt,
+        ).digest(),
+        "big",
+    )
+```
+
+`secret` is 8 random bytes. You can create a secret using rule `secret_salt`. If a secret is available (file `salt.secret`) it will be used.
+
+### Other
+
+- https://github.com/snake-challenge/synthetic_data_release.git@9944dbb
+- https://github.com/snake-challenge/copula-shirley.git@cc11426
