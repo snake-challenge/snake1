@@ -53,3 +53,30 @@ Write to `results/team~<NAME>/algorithm~<ALGORITHM>/epsilon~<EPSILON>/background
 6. Registering an *attack script* into the workflow 
 
 - [ ] TODO
+
+## Optimization
+
+1. Create optimization environment
+
+```
+$ mamba env create -f envs/synthesizers.yaml -n opt
+$ conda activate opt
+(opt) $ conda env config vars set LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+(opt) $ pip install guildai 
+(opt) $ conda deactivate
+$ conda activate opt 
+```
+
+2. Run trials
+
+```
+(opt) $ guild run privbayes:train --maximize BNLogLikelihood histogram_bins=[10:20] degree=[1:10]
+```
+
+Refer to [guild.yml]() for parameters
+
+3. You can view runs (in real-time) with
+
+```
+(opt) $ guild view
+```
