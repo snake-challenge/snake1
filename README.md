@@ -13,13 +13,15 @@
    - TODO: setup Tensorflow and Jax with CUDA
    - TODO: `pip install snake1` ;)
 2. Download and extract data:
-    ```shell
-    wget -qO- https://microdata.epi.org/epi_cpsbasic.tar.gz | tar -xzf - epi_cpsbasic_{2003..2021}.feather -C epi_cpsbasic
-    ```
+   ```shell
+   wget -nc https://microdata.epi.org/epi_cpsbasic.tar.gz
+   mkdir epi_cpsbasic  
+   tar -vxf epi_cpsbasic.tar.gz -C epi_cpsbasic --use-compress-program=pigz epi_cpsbasic_{2003..2021}.feather
+   ```
 3. Prepare data:
-    ```shell
+   ```shell
    snake1 prepare epi_cpsbasic/epi_cpsbasic_{2003..2021}.feather data.feather
-    ```
+   ```
    - Use with option `--seed <int>` for reproducibility. Refer to challenge guidelines below.
    - You can use `--n-jobs <int>` for parallel processing. Use -1 for all CPUs  
 4. Create a task:
