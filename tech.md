@@ -36,7 +36,9 @@ see https://microdata.epi.org/variables/
 - faminc >= 0 
 - age >= 16 
 - basicwgt > 0
-             
+            
+One random individual is selected for each household (identified by `(hhid, hrhhid)`)
+ 
 ### Encoding
 
 All columns are mapped to [0, max] with *consecutive values* when categorical or ordinal. Consecutiveness and starting at 0 are MST requirements.
@@ -54,8 +56,32 @@ The (private) seed used to generate a task (`train`, `background`, `targets`) is
 - h: 32 bytes = black2s(j, digest_size=4, salt=`salt`).digest()
 - bytes h to int (big order)
 
-## Scoring
+## Tasks
 
+### Content
+
+- train: random sample (without replace) of 10000 rows from data
+- background: random sample (wo replace) of % of train
+- targets: random sample of 100 rows from (data \ background) with equal prob of train membership
+- truth:
+- synth: 
+
+### Synthesizers
+
+#### Changelog
+
+- PateGan and PrivBayes: https://github.com/snake-challenge/synthetic_data_release
+  - create package (sub directory, fix imports, pyproject)
+  - fix encoding when categorical values are not strings
+- CopulaShirley: https://github.com/snake-challenge/copula-shirley
+  - create package (sub directory, fix imports, pyproject)
+  - replaced R dependency (r-vinecopulib) with python wrapper pyvinecopulib
+- MST: https://github.com/snake-challenge/private-pgm
+  - fixed warning
+
+#### Parameters
+
+## Scoring
 
 ### Task
     
