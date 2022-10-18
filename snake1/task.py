@@ -59,7 +59,7 @@ class Task:
     def targets(self):
         data_wo_bg = self.data.drop(self.background.index)
         mask = data_wo_bg.index.isin(self.train.index)
-        w = np.where(mask, *(1 / np.bincount(mask, minlength=2)))
+        w = np.where(mask, *np.bincount(mask, minlength=2))
         targets = data_wo_bg.sample(
             n=self.n_targets, weights=w, replace=False, random_state=self.seed_targets
         )
