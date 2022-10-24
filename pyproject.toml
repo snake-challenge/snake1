@@ -19,6 +19,7 @@ dependencies = [
     "private-pgm @ git+https://github.com/snake-challenge/private-pgm.git@5392d37#egg=private-pgm",
     "pyarrow==9.0.0",
     "scipy==1.9.2",
+    "sdmetrics==0.7.0",
     "synthetic_data_release @ git+https://github.com/snake-challenge/synthetic_data_release.git@4a9ee1b#egg=synthetic_data_release",
 ]
 
