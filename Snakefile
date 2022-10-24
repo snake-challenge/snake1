@@ -1,31 +1,28 @@
+import json
+from hashlib import blake2s
+from pathlib import Path
+
 import pandas as pd
 from snakemake.utils import Paramspace
 
+import snake1.task
+
 # TODO: move constants to config
 
-SEED = 123
-
-SYNTHESIZER = ["CopulaShirley", "MST", "PateGan", "PrivBayes"]
-EPSILON = [0.1, 1.0, 10]
-BACKGROUND = [0.0, 0.5]
+configfile: "config.yaml"
 
 # TODO: read from file
 teams = pd.DataFrame(
-    [(s, f"team{k}_{s}") for k, s in enumerate(SYNTHESIZER * 2)],
+    [(s, f"team{k}_{s}") for k, s in enumerate(config["space"]["synthesizer"] * 2)],
     columns=["synthesizer", "team"],
 )
 
-space = pd.MultiIndex.from_product(
-    [SYNTHESIZER, EPSILON, BACKGROUND], names=["synthesizer", "epsilon", "background"]
-).to_frame()
+space = pd.MultiIndex.from_product(config["space"].values(), names=config["space"].keys()).to_frame()
 
-tasks = (
-    space.set_index("synthesizer").join(teams.set_index("synthesizer")).reset_index()
-)
+tasks = (space.set_index("synthesizer").join(teams.set_index("synthesizer")).reset_index())
 
 paramspace = Paramspace(tasks, filename_params=space.columns.tolist())
 # team~{team}/synthesizer~{synthesizer}_epsilon~{epsilon}_background~{background}
-
 
 rule download_data:
     output:
@@ -52,23 +49,50 @@ rule prepare_data:
     output:
         protected("data.feather"),
     params:
-        seed=SEED,
+        seed=config["seed"],
     shell:
         "snake1 prepare --n-jobs -1 --seed {params.seed} {input} {output}"
+
+rule secret:
+    output:
+        protected("secret.dat")
+    shell:
+        "shred -s 8 - > {output}"
+
+def wildcards2seed(wildcards, key=b"", salt=b""):
+    return int.from_bytes(
+        blake2s(
+            json.dumps(dict(wildcards), sort_keys=True).encode(),
+            digest_size=4,
+            key=key,
+            salt=salt,
+        ).digest(),
+        "big",
+    )
 
 
 rule task:
     input:
-        *rules.prepare_data.output,
+        rules.prepare_data.output[0],
+        rules.secret.output
     output:
         expand(
             f"tasks/{paramspace.wildcard_pattern}/{{f}}",
             f=["background.csv", "synth.csv", "targets.csv", "train.csv", "truth.csv"],
             allow_missing=True,
         ),
+    params:
+        seed=lambda wildcards, input: wildcards2seed(wildcards, Path(input[1]).read_bytes()),
     shell:
-        """snake1 task --synthesizer {wildcards.synthesizer} --epsilon {wildcards.epsilon} \
-        --background-frac {wildcards.background} {input} $(dirname {output[0]})"""
+        """
+        snake1 task \
+        --seed {params.seed} \
+        --synthesizer {wildcards.synthesizer} \
+        --epsilon {wildcards.epsilon} \
+        --background-frac {wildcards.background} \
+        {input[0]} \
+        $(dirname {output[0]})
+        """
 
 
 # TODO: delete testing rule

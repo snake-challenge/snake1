@@ -1,0 +1,6 @@
+seed: 123  # sampling of individuals from epi_cpsbasic
+
+space:
+  synthesizer: ["CopulaShirley", "MST", "PateGan", "PrivBayes"]
+  epsilon: [0.1, 1.0, 10]
+  background: [0.0, 0.5]

@@ -53,4 +53,12 @@
 
 ### Workflow
 
-Work in progress ;)
+WIP :)
+
+````shell
+snakemake -c 1 tasks
+```
+
+````shell
+snakemake -c 1 scores
+```
