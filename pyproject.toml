@@ -9,18 +9,18 @@ maintainers = [
     { name="Louis Béziaud" }
 ]
 dependencies = [
-    "click==8.1.3",
-    "copula_shirley @ git+https://github.com/snake-challenge/copula-shirley.git@29dfb9d#egg=copula_shirley",
-    "jax==0.3.23",
-    "joblib==1.2.0",
-    "networkx==2.8.7",
-    "numpy==1.23.4",
-    "pandas==1.5.0",
-    "private-pgm @ git+https://github.com/snake-challenge/private-pgm.git@5392d37#egg=private-pgm",
-    "pyarrow==9.0.0",
-    "scipy==1.9.2",
-    "sdmetrics==0.7.0",
-    "synthetic_data_release @ git+https://github.com/snake-challenge/synthetic_data_release.git@4a9ee1b#egg=synthetic_data_release",
+    "click",
+    "copula_shirley @ git+https://github.com/snake-challenge/copula-shirley.git#egg=copula_shirley",
+    "jax",
+    "joblib",
+    "networkx",
+    "numpy",
+    "pandas",
+    "private-pgm @ git+https://github.com/snake-challenge/private-pgm.git#egg=private-pgm",
+    "pyarrow",
+    "scipy",
+    "sdmetrics",
+    "synthetic_data_release @ git+https://github.com/snake-challenge/synthetic_data_release.git#egg=synthetic_data_release",
 ]
 
 [project.scripts]
