@@ -1,0 +1,39 @@
+/.snakemake/
+
+# download_data
+/epi_cpsbasic_2000_2023.zip
+
+# prepare_data
+/base.parquet
+/meta.json
+
+# task_prep
+/private_data/*/*_*_train.feather
+/private_data/*/*_*_seed.json
+/public_data/*/*_*_targets.csv
+/public_data/*/*_*_targets_index.txt
+/reference_data/*/*_*/*_*.npy
+
+# task_synth
+/public_data/*/*_*_synthetic.csv
+
+# task_hash
+/public_data/*/*_*.sha512
+
+# attack_random
+/public_data/*/*_*.txt
+
+# competition_config
+/competition.yaml
+
+# public_zip
+/public_data_*.zip
+
+# private_zip
+/private_data_*.zip
+
+# starting_kit_zip
+/starting_kit_*.zip
+
+# bunzle_zip
+/bundle.zip

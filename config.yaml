@@ -1,0 +1,22 @@
+phases:
+  alpha:
+    start: 2023-05-15
+    end: 2023-05-21
+
+max_submissions_per_day: 2
+max_submissions: 20
+
+n_samples: 10000
+n_targets: 100
+target_min_hh: 5
+
+tasks:
+  generator:
+    - mst
+    - pategan
+    - privbayes
+  epsilon:
+    - 1
+    - 10
+    - 100
+    - 1000
