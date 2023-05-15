@@ -1,5 +1,7 @@
 /.snakemake/
 
+__pycache__
+
 # download_data
 /epi_cpsbasic_2000_2023.zip
 
