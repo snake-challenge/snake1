@@ -4,16 +4,16 @@ phases:
     start: 2023-05-12
     end: 2023-05-21
     description: Testing phase
-  main:
-    name: Main
-    start: 2023-05-22
-    end: 2023-06-10
-    description: Main phase
-  apvp:
-    name: APVP
-    start: 2023-06-12
-    end: 2023-06-15
-    description: TBD during APVP'23
+#  main:
+#    name: Main
+#    start: 2023-05-22
+#    end: 2023-06-10
+#    description: Main phase
+#  apvp:
+#    name: APVP
+#    start: 2023-06-12
+#    end: 2023-06-15
+#    description: TBD during APVP'23
 
 max_submissions_per_day: 2
 max_submissions: 20
