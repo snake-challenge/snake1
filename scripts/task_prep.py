@@ -43,7 +43,7 @@ def main():
     np.savetxt(sm.output.targets_idx, targets_idx, fmt="%d")
     targets.to_csv(sm.output.targets)
 
-    np.save(sm.output.truth, truth)
+    np.savetxt(sm.output.truth, truth, fmt="%d")
 
     train.reset_index(drop=True).to_feather(sm.output.train)
 

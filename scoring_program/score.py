@@ -26,7 +26,7 @@ res_name = f"{ref.stem}.txt"
 res = input_dir / "res" / res_name
 assert res.exists()
 
-truth = np.load(ref)
+truth = np.loadtxt(ref, dtype=float)
 guess = np.loadtxt(res, dtype=float)
 
 assert truth.shape == guess.shape

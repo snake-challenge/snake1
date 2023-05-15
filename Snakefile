@@ -39,7 +39,7 @@ rule task_prep:
         seed="private_data/{phase}/{generator}_{epsilon}_seed.json",
         targets="public_data/{phase}/{generator}_{epsilon}_targets.csv",
         targets_idx="public_data/{phase}/{generator}_{epsilon}_targets_index.txt",
-        truth="reference_data/{phase}/{generator}_{epsilon}/{generator}_{epsilon}.npy",
+        truth="reference_data/{phase}/{generator}_{epsilon}/{generator}_{epsilon}.txt",
     params:
         target_min_hh=config["target_min_hh"],
         n_samples=config["n_samples"],
@@ -84,7 +84,7 @@ rule attack_random:
     input:
         rules.task_prep.output.targets_idx,
     output:
-        "public_data/{phase}/{generator}_{epsilon}.txt",
+        "starting_kit/{phase}/{generator}_{epsilon}.txt",
     script:
         "scripts/attack_random.py"
 
@@ -158,6 +158,7 @@ use rule _zip_skip_commonpath as starting_kit_zip with:
         expand(rules.attack_random.output[0], **config["tasks"], allow_missing=True),
     output:
         "starting_kit_{phase}.zip",
+
 
 
 use rule _zip as bundle_zip with:

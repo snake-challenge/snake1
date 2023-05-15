@@ -12,7 +12,7 @@
 /private_data/*/*_*_seed.json
 /public_data/*/*_*_targets.csv
 /public_data/*/*_*_targets_index.txt
-/reference_data/*/*_*/*_*.npy
+/reference_data/*/*_*/*_*.txt
 
 # task_synth
 /public_data/*/*_*_synthetic.csv
@@ -31,6 +31,9 @@
 
 # private_zip
 /private_data_*.zip
+
+# attack_random
+/starting_kit/*/*_*.txt
 
 # starting_kit_zip
 /starting_kit_*.zip

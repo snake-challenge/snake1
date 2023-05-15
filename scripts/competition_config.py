@@ -19,12 +19,22 @@ tasks = {
     for j, phase in enumerate(sm.params.phases)
 }
 
+solutions = [
+    {
+        "index": task["index"],
+        "tasks": [task["index"]],
+        "path": task["reference_data"]
+    }
+    for task in chain.from_iterable(tasks.values())
+]
+
 competition = {
     "version": 2,
     "title": "SNAKE #1",
     "description": "SaNitization Algorithms under attacK",
     "image": "logo.png",
     "terms": "pages/terms.md",
+    "registration_auto_approve": True,
     "pages": [
         {"title": "Overview", "file": "pages/overview.md"},
         {"title": "Getting Started", "file": "pages/getting_started.md"},
@@ -34,7 +44,8 @@ competition = {
     ],
     "phases": [
         {
-            "name": name.capitalize(),
+            "name": phase["name"],
+            "description": phase["description"],
             "start": phase["start"],
             "end": phase["end"],
             "max_submissions_per_day": sm.params.max_submissions_per_day,
@@ -44,7 +55,7 @@ competition = {
         for name, phase in sm.params.phases.items()
     ],
     "tasks": list(chain.from_iterable(tasks.values())),
-    "solutions": [],
+    "solutions": solutions,
     "leaderboards": [
         {
             "title": "Results",
@@ -59,6 +70,16 @@ competition = {
             ],
         }
     ],
+    "fact_sheet": {
+        "url": {
+            "key": "url",
+            "type": "text",
+            "title": "URL",
+            "selection": "",
+            "is_required": False,
+            "is_on_leaderboard": False
+        }
+    }
 }
 
 with open(sm.output[0], "w") as f:
