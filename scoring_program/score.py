@@ -1,3 +1,4 @@
+import argparse
 import json
 from pathlib import Path
 
@@ -15,15 +16,31 @@ def membership_advantage(y_true, y_pred, sample_weight):
     return ma
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--ref", type=Path)
+parser.add_argument("--res-dir", type=Path)
+parser.add_argument("--stdout", action="store_true")
+
+args = parser.parse_args()
+
 input_dir = Path("/app/input")
 output_dir = Path("/app/output")
 
-ref_dir = input_dir / "ref"
-ref = next(ref_dir.iterdir())  # only one
+if args.ref is not None:
+    ref = args.ref
+else:
+    ref_dir = input_dir / "ref"
+    ref = next(ref_dir.iterdir())  # only one
+
 assert ref.exists()
 
+if args.res_dir is not None:
+    res_dir = args.res_dir
+else:
+    res_dir = input_dir / "res"
+
 res_name = f"{ref.stem}.txt"
-res = input_dir / "res" / res_name
+res = res_dir / res_name
 assert res.exists()
 
 truth = np.loadtxt(ref, dtype=float)
@@ -36,5 +53,8 @@ score = membership_advantage(truth, guess > 0.5, sample_weight=weights)
 
 scores = {"ma": score}
 
-with open(output_dir / "scores.json", "w") as f:
-    json.dump(scores, f)
+if args.stdout:
+    print(json.dumps(scores))
+else:
+    with open(output_dir / "scores.json", "w") as f:
+        json.dump(scores, f)
