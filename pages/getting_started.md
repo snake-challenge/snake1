@@ -1,9 +1,13 @@
 # Getting Started
 
+## Public data
+
+Task inputs are available as `public_data_{phase}.zip` (see [here](https://github.com/snake-challenge/snake1/releases/tag/v1.0.0)). See the Data tab for details.
+
 ## Submission
 
 Zip file containing `{generator}_{epsilon}.txt` for each task, with one guess ∈ [0, 1] per line for each *target household* (i.e., same number of lines as `{generator}_{epsilon}_targets_index.txt`).
-We provide an example as `starting_kit_{phase}.zip`.
+We provide an example as `starting_kit_{phase}.zip` (see [here](https://github.com/snake-challenge/snake1/releases/tag/v1.0.0)).
 
 The total number of submissions is limited to 20, with at most 2 submissions per day. You can however generate you own tasks locally to evaluate your attack.
 
