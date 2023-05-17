@@ -16,7 +16,7 @@ See [starting_kit](./starting_kit/README.md)
 
 ## Contact
 
-TBD
+snake-challenge@inria.fr
 
 ## Building the CodaBench bundle
 
