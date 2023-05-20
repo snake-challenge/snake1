@@ -19,7 +19,7 @@ Each task `generator`(ε=`epsilon`) is described by the following set of files:
 
 Available at `public_data_{phase}.zip`
 
-- `{generator}_{epsilon}.sha512` contains a sha512 hash of public and private files; 
+- `{generator}_{epsilon}.sha512` contains a sha512 hash of public and private files which can be used to validate the evaluation after the competition; 
 - `{generator}_{epsilon}_synthetic.csv` is the privacy-preserving synthetic data;
 - `{generator}_{epsilon}_targets.csv` is the set of individual targets;
 - `{generator}_{epsilon}_targets_index.txt` is the household index of targets.
