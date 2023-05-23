@@ -46,6 +46,8 @@ assert res.exists()
 truth = np.loadtxt(ref, dtype=float)
 guess = np.loadtxt(res, dtype=float)
 
+assert np.all((guess >= 0.0) & (guess <= 1.0))
+
 assert truth.shape == guess.shape
 
 weights = 2 * np.abs(0.5 - guess)
