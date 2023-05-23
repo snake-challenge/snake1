@@ -1,5 +1,7 @@
 # Data
 
+Data is available as release artifacts at https://github.com/snake-challenge/snake1/
+
 ## Base
 
 The data (available as `base.parquet`) is adapted from the [EPI CPS Basic Monthly](https://microdata.epi.org) dataset provided by the Economic Policy Institute.

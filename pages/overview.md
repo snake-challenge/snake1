@@ -8,6 +8,8 @@ private dataset.
 • The base dataset from which the private dataset is sampled.
 • The parameters of the execution of the sanitization algorithm attacked.
 
+You can find the input data as release artifacts at https://github.com/snake-challenge/snake1/
+
 **Output.** The output of the attack algorithm is a single real ∈ [0, 1] indicating the predicted probability of each target being within the private dataset or not.
 
 For more details about the competition, see the detailed description paper at the following address:
