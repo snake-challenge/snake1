@@ -24,7 +24,6 @@ We use different file formats, all readable with either Pandas or Numpy (and man
 
 - [`.parquet`](https://parquet.apache.org/) readable with [`pandas.read_parquet`](https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html)
 - [`.feather`](https://arrow.apache.org/docs/python/feather.html) readable with [`pandas.read_feather`](https://pandas.pydata.org/docs/reference/api/pandas.read_feather.html)
-- pickled numpy `.npy` readable with [`numpy.load`](https://numpy.org/doc/stable/reference/generated/numpy.load.html) (reference data)
 - comma-separated values `.csv` readable with [`pandas.read_csv`](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html)
 - submissions as `.txt` (see above) writable with [`numpy.savetxt`](https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html) with `fmt="%f"`.
 
