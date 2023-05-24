@@ -55,7 +55,7 @@ score = membership_advantage(truth, guess > 0.5, sample_weight=weights)
 
 scores = {"ma": score}
 
-print(json.dumps(scores))
+print(f"Membership advantage = {score}")
 
 if not args.stdout:
     with open(output_dir / "scores.json", "w") as f:
