@@ -32,7 +32,7 @@ else:
     ref_dir = input_dir / "ref"
     ref = next(ref_dir.iterdir())  # only one
 
-assert ref.exists()
+assert ref.exists(), f"Missing reference file {ref}"
 
 if args.res_dir is not None:
     res_dir = args.res_dir
@@ -41,14 +41,14 @@ else:
 
 res_name = f"{ref.stem}.txt"
 res = res_dir / res_name
-assert res.exists()
+assert res.exists(), f"Missing submission file {res_name}"
 
 truth = np.loadtxt(ref, dtype=float)
 guess = np.loadtxt(res, dtype=float)
 
-assert np.all((guess >= 0.0) & (guess <= 1.0))
+assert np.all((guess >= 0.0) & (guess <= 1.0)), "Submission outside of range [0, 1]"
 
-assert truth.shape == guess.shape
+assert truth.shape == guess.shape, f"Invalid number of lines: got {len(guess)} expected {len(truth)}"
 
 weights = 2 * np.abs(0.5 - guess)
 score = membership_advantage(truth, guess > 0.5, sample_weight=weights)
