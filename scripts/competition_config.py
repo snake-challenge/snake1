@@ -74,7 +74,7 @@ competition = {
         "url": {
             "key": "url",
             "type": "text",
-            "title": "URL",
+            "title": "Description/code of the attack (URL)",
             "selection": "",
             "is_required": False,
             "is_on_leaderboard": False
