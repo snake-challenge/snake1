@@ -11,6 +11,10 @@ Task inputs are available as `public_data_{phase}.zip`. See the Data tab for det
 Zip file containing `{generator}_{epsilon}.txt` for each task, with one guess ∈ [0, 1] per line for each *target household* (i.e., same number of lines as `{generator}_{epsilon}_targets_index.txt`).
 We provide an example as `starting_kit_{phase}.zip`.
 
+Note that the zip file (submission file) needs to contain your *attack results for all tasks*.
+You score will be computed on a single submission, not on the best one for each task.
+You need to explicitely add your chosen submission to the leaderboard for it to be taken into account.
+
 The total number of submissions is limited to 20, with at most 2 submissions per day. You can however generate you own tasks locally to evaluate your attack.
 
 ## Environment
