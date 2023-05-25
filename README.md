@@ -2,17 +2,11 @@
 
 Welcome to the SaNitization Algorithms under attacK (SNAKE) challenge.
 
-## Important dates
-
-TBD
+For more details about the competition, see the detailed description paper at https://snake-challenge.github.io
 
 ## CodaBench competition
 
-TBD
-
-## Getting started
-
-See [starting_kit](./starting_kit/README.md)
+Find us at https://www.codabench.org/competitions/879/
 
 ## Contact
 
