@@ -12,7 +12,7 @@ One submission should take the form of a Zip file containing a file called `{gen
 We provide an example of a dummy submission file in `starting_kit_{phase}.zip`.
 
 Note that the zip file (submission file) needs to contain the *results of the attacks for all tasks*.
-In addition, the score of a user will be computed on a single submission chosen and explicitely validated by the user and not on the best one for each task (*i.e.*, this means that the leaderboard will not remember the previous scores best scores of each task but only display the ones related to the chosen submission).
+In addition, the score of a user will be computed on a single submission chosen and explicitely validated by the user and not on the best one for each task (*i.e.*, this means that the leaderboard will not remember the previous scores of each task but only display the ones related to the chosen submission).
 In practice, this means that you need to add explicitely your chosen submission to the leaderboard for it to be taken into account.
 
 **Limit of the number of submissions**: The total number of submissions per participant is limited to 20, with at most 2 submissions per day.
