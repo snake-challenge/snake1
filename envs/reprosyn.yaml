@@ -15,3 +15,4 @@ dependencies:
   - pip:
       - jax[cpu]
       - git+https://github.com/alan-turing-institute/reprosyn#egg=reprosyn[ektelo]
+      - git+https://github.com/callummole/ektelo@dependencies#subdirectory=ektelo/algorithm/privBayes
