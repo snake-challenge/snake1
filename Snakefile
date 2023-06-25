@@ -25,6 +25,8 @@ rule prepare_data:
     output:
         data="base.parquet",
         meta="meta.json",
+    conda:
+        "envs/pandas.yaml"
     params:
         chunksize=100000,
     script:
@@ -40,6 +42,8 @@ rule task_prep:
         targets="public_data/{phase}/{generator}_{epsilon}_targets.csv",
         targets_idx="public_data/{phase}/{generator}_{epsilon}_targets_index.txt",
         truth="reference_data/{phase}/{generator}_{epsilon}/{generator}_{epsilon}.txt",
+    conda:
+        "envs/pandas.yaml"
     params:
         target_min_hh=config["target_min_hh"],
         n_samples=config["n_samples"],
